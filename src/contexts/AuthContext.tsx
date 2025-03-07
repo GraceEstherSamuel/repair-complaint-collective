@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         
         setUser(mockUser);
         localStorage.setItem("user", JSON.stringify(mockUser));
-        toast.success(`Welcome back, ${mockUser.name}`);
+        toast.success(`Welcome to Sahaay, ${mockUser.name}!`);
       }
     } catch (error) {
       toast.error("Failed to login");
@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         
         setUser(mockUser);
         localStorage.setItem("user", JSON.stringify(mockUser));
-        toast.success(`Welcome, ${name}!`);
+        toast.success(`Welcome to Sahaay, ${name}!`);
       }
     } catch (error) {
       toast.error("Failed to sign up");

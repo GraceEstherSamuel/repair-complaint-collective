@@ -1,119 +1,101 @@
 
 import { useIssues } from "@/contexts/IssueContext";
-import { useAuth } from "@/contexts/AuthContext";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import IssuesList from "@/components/IssuesList";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { 
-  MapPin, 
-  ThumbsUp, 
-  CheckCircle2, 
-  Clock, 
-  PlusCircle 
-} from "lucide-react";
-import { Link } from "react-router-dom";
 import PieChartDisplay from "@/components/PieChartDisplay";
-import BarChartDisplay from "@/components/BarChartDisplay";
+import { Link } from "react-router-dom";
+import { ArrowRight, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 
 const DashboardPage = () => {
-  const { issues, getTopIssues } = useIssues();
-  const { user } = useAuth();
+  const { getTopIssues, issues } = useIssues();
   
-  const topIssues = getTopIssues(3);
+  // Get the top issues by votes
+  const topIssues = getTopIssues(5);
   
-  const openIssues = issues.filter(i => i.status === "open").length;
-  const inProgressIssues = issues.filter(i => i.status === "in-progress").length;
-  const resolvedIssues = issues.filter(i => i.status === "resolved").length;
-  const totalVotes = issues.reduce((sum, issue) => sum + issue.votes, 0);
+  // Count issues by status
+  const statusCounts = {
+    open: issues.filter(issue => issue.status === "open").length,
+    "in-progress": issues.filter(issue => issue.status === "in-progress").length,
+    resolved: issues.filter(issue => issue.status === "resolved").length,
+  };
   
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-gray-500">
-            Overview of community issues and activity
-          </p>
-        </div>
-        <Link to="/report-issue">
-          <Button className="bg-app-green hover:bg-app-green/90">
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Report Issue
-          </Button>
-        </Link>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <MapPin className="h-6 w-6 text-app-blue" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Issues</p>
-                <h3 className="text-2xl font-bold">{issues.length}</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="bg-orange-100 p-3 rounded-full">
-                <Clock className="h-6 w-6 text-app-orange" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Open Issues</p>
-                <h3 className="text-2xl font-bold">{openIssues}</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="bg-green-100 p-3 rounded-full">
-                <CheckCircle2 className="h-6 w-6 text-app-green" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Resolved</p>
-                <h3 className="text-2xl font-bold">{resolvedIssues}</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="bg-purple-100 p-3 rounded-full">
-                <ThumbsUp className="h-6 w-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Votes</p>
-                <h3 className="text-2xl font-bold">{totalVotes}</h3>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <PieChartDisplay />
-        <BarChartDisplay />
-      </div>
-      
       <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Top Voted Issues</h2>
-          <Link to="/community-issues">
-            <Button variant="outline">View All</Button>
-          </Link>
-        </div>
-        <IssuesList issues={topIssues} />
+        <h1 className="text-2xl font-bold">Sahaay Dashboard</h1>
+        <p className="text-gray-500">
+          View and manage community issues in your area
+        </p>
+      </div>
+      
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Open Issues</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-yellow-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{statusCounts.open}</div>
+            <p className="text-xs text-gray-500">Issues awaiting attention</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+            <Clock className="h-4 w-4 text-blue-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{statusCounts["in-progress"]}</div>
+            <p className="text-xs text-gray-500">Issues being addressed</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Resolved</CardTitle>
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{statusCounts.resolved}</div>
+            <p className="text-xs text-gray-500">Issues successfully fixed</p>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card className="col-span-1">
+          <CardHeader>
+            <CardTitle>Top Community Issues</CardTitle>
+            <CardDescription>
+              Highest voted issues in your community
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <IssuesList issues={topIssues} />
+            <div className="mt-4 text-right">
+              <Link 
+                to="/community-issues" 
+                className="text-sm font-medium text-primary inline-flex items-center hover:underline"
+              >
+                View all issues 
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="col-span-1">
+          <CardHeader>
+            <CardTitle>Issue Distribution</CardTitle>
+            <CardDescription>
+              Categories of reported issues
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex justify-center">
+            <PieChartDisplay />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
