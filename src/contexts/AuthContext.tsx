@@ -31,7 +31,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     // Check for saved user in localStorage
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        localStorage.removeItem("user");
+      }
     }
     setIsLoading(false);
   }, []);
@@ -56,6 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       toast.error("Failed to login");
       console.error(error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -66,6 +72,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(true);
       // In a real app, this would be an API call
       if (name && email && password) {
+        // Simple validation
+        if (password.length < 6) {
+          toast.error("Password must be at least 6 characters");
+          throw new Error("Password must be at least 6 characters");
+        }
+        
         const mockUser: User = {
           id: "usr_" + Math.random().toString(36).substr(2, 9),
           name: name,
@@ -80,6 +92,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       toast.error("Failed to sign up");
       console.error(error);
+      throw error;
     } finally {
       setIsLoading(false);
     }

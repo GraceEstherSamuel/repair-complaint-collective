@@ -15,7 +15,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { MapPin, Upload, AlertTriangle } from "lucide-react";
+import { MapPin, Upload, AlertTriangle, FileText, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 const ReportIssuePage = () => {
@@ -87,6 +87,7 @@ const ReportIssuePage = () => {
       
       // Navigate to the dashboard after successful submission
       navigate("/dashboard");
+      toast.success("Issue reported successfully!");
     } catch (error) {
       console.error("Error submitting issue:", error);
       toast.error("Failed to submit issue. Please try again.");
@@ -97,11 +98,32 @@ const ReportIssuePage = () => {
   
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Report an Issue</h1>
-        <p className="text-gray-500">
-          Submit details about a problem in your community
-        </p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Report an Issue</h1>
+          <p className="text-gray-500">
+            Submit details about a problem in your community
+          </p>
+        </div>
+        
+        <div className="mt-4 sm:mt-0 flex gap-4">
+          <Button 
+            variant="outline" 
+            className="border-app-blue text-app-blue hover:bg-app-blue/10"
+            onClick={() => navigate("/community-issues")}
+          >
+            <FileText className="mr-2 h-4 w-4" />
+            View Issues
+          </Button>
+          
+          <Button 
+            className="bg-app-green text-white hover:bg-app-green/90"
+            onClick={() => navigate("/report-issue")}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            New Complaint
+          </Button>
+        </div>
       </div>
       
       <Card>
@@ -250,10 +272,19 @@ const ReportIssuePage = () => {
               </div>
             </div>
             
-            <div className="pt-4">
+            <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <Button 
+                type="button" 
+                variant="outline"
+                className="border-app-orange text-app-orange hover:bg-app-orange/10"
+                onClick={() => navigate("/dashboard")}
+              >
+                Cancel
+              </Button>
+              
               <Button 
                 type="submit" 
-                className="w-full bg-app-blue hover:bg-app-blue/90"
+                className="bg-app-blue hover:bg-app-blue/90"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (

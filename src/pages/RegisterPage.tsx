@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, AlertTriangle } from "lucide-react";
+import { MapPin, AlertTriangle, UserPlus, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
   const { signup, user } = useAuth();
   
@@ -29,23 +31,31 @@ const RegisterPage = () => {
     
     if (!name || !email || !password || !confirmPassword) {
       setError("Please fill in all fields");
+      toast.error("Please fill in all fields");
       return;
     }
     
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     
     try {
       setIsLoading(true);
       await signup(name, email, password);
+      toast.success("Account created successfully!");
     } catch (err) {
       setError("Failed to create an account. Please try again.");
+      toast.error("Failed to create an account");
       console.error(err);
     } finally {
       setIsLoading(false);
     }
+  };
+  
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
   
   return (
@@ -62,9 +72,12 @@ const RegisterPage = () => {
           </p>
         </div>
         
-        <Card>
+        <Card className="shadow-lg border-t-4 border-t-app-blue">
           <CardHeader>
-            <CardTitle>Create an Account</CardTitle>
+            <CardTitle className="flex items-center justify-center gap-2">
+              <UserPlus className="h-5 w-5 text-app-blue" />
+              Create an Account
+            </CardTitle>
             <CardDescription>
               Sign up to start reporting and voting on community issues
             </CardDescription>
@@ -72,59 +85,87 @@ const RegisterPage = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="flex items-center gap-2">
+                  <UserPlus className="h-4 w-4" />
+                  Full Name
+                </Label>
                 <Input
                   id="name"
                   type="text"
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="border-gray-300 focus:border-app-blue focus:ring-app-blue"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="border-gray-300 focus:border-app-blue focus:ring-app-blue"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <Label htmlFor="password" className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  Password
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="border-gray-300 focus:border-app-blue focus:ring-app-blue pr-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
+                <Label htmlFor="confirmPassword" className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  Confirm Password
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="border-gray-300 focus:border-app-blue focus:ring-app-blue pr-10"
+                    required
+                  />
+                </div>
               </div>
               
               {error && (
-                <div className="bg-red-100 text-red-800 p-3 rounded text-sm">
+                <div className="bg-red-100 text-red-800 p-3 rounded text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4" />
                   {error}
                 </div>
               )}
               
               <Button 
                 type="submit" 
-                className="w-full bg-app-blue hover:bg-app-blue/90"
+                className="w-full bg-app-blue hover:bg-app-blue/90 transition-all duration-300 mt-4"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -141,7 +182,7 @@ const RegisterPage = () => {
           <CardFooter className="flex justify-center">
             <p className="text-sm text-gray-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-app-blue hover:underline">
+              <Link to="/login" className="text-app-blue hover:underline font-medium">
                 Sign in
               </Link>
             </p>
