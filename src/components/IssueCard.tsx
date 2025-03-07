@@ -67,7 +67,7 @@ const IssueCard = ({ issue, showVoteButton = true }: IssueCardProps) => {
 
   return (
     <Link to={`/issues/${issue.id}`}>
-      <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300">
+      <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 hover:translate-y-[-2px]">
         {issue.imageUrl && (
           <div className="h-48 overflow-hidden">
             <img 
@@ -126,7 +126,7 @@ const IssueCard = ({ issue, showVoteButton = true }: IssueCardProps) => {
           <div className="absolute top-2 right-2">
             <Button 
               size="sm" 
-              className="bg-app-blue hover:bg-app-blue/90"
+              className="bg-gradient-to-r from-app-blue to-app-green hover:shadow-md hover:opacity-90"
               onClick={handleVote}
             >
               <ThumbsUp className="h-4 w-4 mr-1" /> Vote

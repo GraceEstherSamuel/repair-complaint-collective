@@ -58,10 +58,14 @@ const AppSidebar = () => {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link to={item.url} className="flex items-center gap-3">
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.title}</span>
+                  <SidebarMenuButton asChild isActive={isActive(item.url)} 
+                    className={isActive(item.url) ? "bg-primary/10" : ""}>
+                    <Link to={item.url} className="flex items-center gap-3 group">
+                      <item.icon className={`h-5 w-5 transition-colors 
+                        ${isActive(item.url) ? "text-app-blue" : "group-hover:text-app-blue"}`} />
+                      <span className={isActive(item.url) ? "font-medium" : ""}>
+                        {item.title}
+                      </span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -76,8 +80,8 @@ const AppSidebar = () => {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="#" className="flex items-center gap-3">
-                    <Settings className="h-5 w-5" />
+                  <Link to="#" className="flex items-center gap-3 group">
+                    <Settings className="h-5 w-5 group-hover:text-app-green transition-colors" />
                     <span>Settings</span>
                   </Link>
                 </SidebarMenuButton>
@@ -86,9 +90,9 @@ const AppSidebar = () => {
                 <SidebarMenuButton asChild>
                   <button 
                     onClick={logout} 
-                    className="flex items-center gap-3 w-full text-left"
+                    className="flex items-center gap-3 w-full text-left group"
                   >
-                    <LogOut className="h-5 w-5" />
+                    <LogOut className="h-5 w-5 group-hover:text-destructive transition-colors" />
                     <span>Logout</span>
                   </button>
                 </SidebarMenuButton>
