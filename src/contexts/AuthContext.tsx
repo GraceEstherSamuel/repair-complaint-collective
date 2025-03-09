@@ -56,10 +56,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         
         setUser(mockUser);
         localStorage.setItem("user", JSON.stringify(mockUser));
-        toast.success(`Welcome to Sahaay, ${mockUser.name}!`);
+        toast.success(`Welcome to Sahaay, ${mockUser.name}!`, {
+          position: "top-center",
+          duration: 3000,
+        });
       }
     } catch (error) {
-      toast.error("Failed to login");
+      toast.error("Failed to login. Please try again.", {
+        position: "top-center",
+        duration: 3000,
+      });
       console.error(error);
       throw error;
     } finally {
@@ -74,7 +80,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (name && email && password) {
         // Simple validation
         if (password.length < 6) {
-          toast.error("Password must be at least 6 characters");
+          toast.error("Password must be at least 6 characters", {
+            position: "top-center",
+            duration: 3000,
+          });
           throw new Error("Password must be at least 6 characters");
         }
         
@@ -87,10 +96,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         
         setUser(mockUser);
         localStorage.setItem("user", JSON.stringify(mockUser));
-        toast.success(`Welcome to Sahaay, ${name}!`);
+        toast.success(`Welcome to Sahaay, ${name}!`, {
+          position: "top-center",
+          duration: 3000,
+        });
       }
     } catch (error) {
-      toast.error("Failed to sign up");
+      toast.error("Failed to sign up. Please try again.", {
+        position: "top-center",
+        duration: 3000,
+      });
       console.error(error);
       throw error;
     } finally {
@@ -101,7 +116,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    toast.info("Logged out successfully");
+    toast.info("Logged out successfully", {
+      position: "top-center",
+      duration: 3000,
+    });
   };
 
   return (
