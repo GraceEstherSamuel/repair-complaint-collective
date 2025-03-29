@@ -15,16 +15,17 @@ const Layout = () => {
             <SidebarTrigger className="bg-white/90 backdrop-blur-sm shadow-md hover:bg-primary/5" />
           </div>
           <div className="pt-8 md:pt-0 max-w-7xl mx-auto w-full">
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-4 md:p-6 border border-gray-100">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 transition-all duration-300 hover:shadow-md">
               <Outlet />
             </div>
           </div>
         </main>
       </div>
       
-      {/* Decorative elements */}
-      <div className="fixed top-20 right-10 w-72 h-72 bg-blue-400/10 rounded-full filter blur-3xl pointer-events-none"></div>
-      <div className="fixed bottom-10 left-10 w-72 h-72 bg-green-400/10 rounded-full filter blur-3xl pointer-events-none"></div>
+      {/* Enhanced decorative elements */}
+      <div className="fixed top-20 right-10 w-96 h-96 bg-blue-400/10 rounded-full filter blur-3xl pointer-events-none animate-pulse-slow"></div>
+      <div className="fixed bottom-10 left-10 w-96 h-96 bg-green-400/10 rounded-full filter blur-3xl pointer-events-none animate-pulse-slow"></div>
+      <div className="fixed bottom-40 right-40 w-72 h-72 bg-orange-400/5 rounded-full filter blur-3xl pointer-events-none animate-pulse-slow"></div>
     </div>
   );
 };

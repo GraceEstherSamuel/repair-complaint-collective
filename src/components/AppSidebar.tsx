@@ -18,7 +18,8 @@ import {
   PlusCircle, 
   Settings, 
   LogOut,
-  HelpCircle
+  HelpCircle,
+  Map
 } from "lucide-react";
 
 const AppSidebar = () => {
@@ -44,6 +45,11 @@ const AppSidebar = () => {
       icon: BarChart,
     },
     {
+      title: "Issue Map",
+      url: "/issue-map",
+      icon: Map,
+    },
+    {
       title: "Report Issue",
       url: "/report-issue",
       icon: PlusCircle,
@@ -56,7 +62,7 @@ const AppSidebar = () => {
         {user && (
           <div className="px-3 py-4 border-b border-gray-100 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-app-blue to-app-green flex items-center justify-center text-white font-bold">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-app-blue to-app-green flex items-center justify-center text-white font-bold shadow-md">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="overflow-hidden">
@@ -81,6 +87,9 @@ const AppSidebar = () => {
                       <span className={`${isActive(item.url) ? "font-medium text-gray-900" : "text-gray-700"}`}>
                         {item.title}
                       </span>
+                      {item.title === "Issue Map" && (
+                        <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-app-green text-white">New</span>
+                      )}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -94,8 +103,8 @@ const AppSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild className="rounded-md hover:bg-gray-100 transition-all duration-200">
-                  <Link to="#" className="flex items-center gap-3 group px-3 py-2">
+                <SidebarMenuButton asChild isActive={isActive("/settings")} className="rounded-md hover:bg-gray-100 transition-all duration-200">
+                  <Link to="/settings" className="flex items-center gap-3 group px-3 py-2">
                     <Settings className="h-5 w-5 text-gray-500 group-hover:text-app-green transition-colors" />
                     <span className="text-gray-700">Settings</span>
                   </Link>

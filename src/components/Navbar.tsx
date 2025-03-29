@@ -7,12 +7,16 @@ import {
   Bell,
   Settings,
   LogOut,
-  Search
+  Search,
+  Moon,
+  Sun
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const [darkMode, setDarkMode] = useState(false);
   
   const getInitials = (name: string) => {
     return name
@@ -20,6 +24,11 @@ const Navbar = () => {
       .map(part => part[0])
       .join('')
       .toUpperCase();
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    // In a real implementation, this would toggle a dark mode class or context
   };
   
   return (
@@ -49,7 +58,7 @@ const Navbar = () => {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Search issues..." 
-              className="w-full pl-9 bg-gray-50 border-gray-200 focus:border-app-blue" 
+              className="w-full pl-9 bg-gray-50 border-gray-200 focus:border-app-blue focus:ring-app-blue transition-all" 
             />
           </div>
         </div>
@@ -57,8 +66,17 @@ const Navbar = () => {
         <div className="ml-auto flex items-center gap-4">
           {user ? (
             <div className="flex items-center gap-3">
-              <button className="rounded-full p-2 text-gray-500 hover:bg-gray-100 transition-all">
+              <button 
+                onClick={toggleDarkMode}
+                className="rounded-full p-2 text-gray-500 hover:bg-gray-100 transition-all"
+                aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </button>
+              
+              <button className="rounded-full p-2 text-gray-500 hover:bg-gray-100 transition-all relative">
                 <Bell className="h-5 w-5" />
+                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-app-blue"></span>
               </button>
               
               <div className="border-l h-6 border-gray-200 mx-1"></div>

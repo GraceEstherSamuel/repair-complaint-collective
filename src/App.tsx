@@ -18,6 +18,8 @@ import CommunityIssuesPage from "./pages/CommunityIssuesPage";
 import PriorityIssuesPage from "./pages/PriorityIssuesPage";
 import ReportIssuePage from "./pages/ReportIssuePage";
 import IssueDetailsPage from "./pages/IssueDetailsPage";
+import IssueMapPage from "./pages/IssueMapPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -70,6 +72,24 @@ const App = () => (
                     element={
                       <ProtectedRoute>
                         <ReportIssuePage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  
+                  <Route
+                    path="/issue-map"
+                    element={
+                      <ProtectedRoute>
+                        <IssueMapPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  
+                  <Route
+                    path="/settings"
+                    element={
+                      <ProtectedRoute>
+                        <SettingsPage />
                       </ProtectedRoute>
                     }
                   />
