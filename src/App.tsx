@@ -19,6 +19,7 @@ import PriorityIssuesPage from "./pages/PriorityIssuesPage";
 import ReportIssuePage from "./pages/ReportIssuePage";
 import IssueDetailsPage from "./pages/IssueDetailsPage";
 import IssueMapPage from "./pages/IssueMapPage";
+import HelpSupportPage from "./pages/HelpSupportPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
@@ -81,6 +82,15 @@ const App = () => (
                     element={
                       <ProtectedRoute>
                         <IssueMapPage />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/help-support"
+                    element={
+                      <ProtectedRoute>
+                        <HelpSupportPage />
                       </ProtectedRoute>
                     }
                   />

@@ -111,8 +111,8 @@ const AppSidebar = () => {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild className="rounded-md hover:bg-gray-100 transition-all duration-200">
-                  <Link to="#" className="flex items-center gap-3 group px-3 py-2">
+                <SidebarMenuButton asChild isActive={isActive("/help-support")} className="rounded-md hover:bg-gray-100 transition-all duration-200">
+                  <Link to="/help-support" className="flex items-center gap-3 group px-3 py-2">
                     <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-app-blue transition-colors" />
                     <span className="text-gray-700">Help & Support</span>
                   </Link>
