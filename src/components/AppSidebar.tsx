@@ -19,7 +19,7 @@ import {
   Settings, 
   LogOut,
   HelpCircle,
-  Map
+  MessageSquareText
 } from "lucide-react";
 
 const AppSidebar = () => {
@@ -45,14 +45,10 @@ const AppSidebar = () => {
       icon: BarChart,
     },
     {
-      title: "Issue Map",
-      url: "/issue-map",
-      icon: Map,
-    },
-    {
-      title: "Report Issue",
-      url: "/report-issue",
-      icon: PlusCircle,
+      title: "🛠️ Report Issue",
+      url: "/help-support",
+      icon: MessageSquareText,
+      badge: "New"
     },
   ];
 
@@ -87,8 +83,10 @@ const AppSidebar = () => {
                       <span className={`${isActive(item.url) ? "font-medium text-gray-900" : "text-gray-700"}`}>
                         {item.title}
                       </span>
-                      {item.title === "Issue Map" && (
-                        <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-app-green text-white">New</span>
+                      {item.badge && (
+                        <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-app-green text-white">
+                          {item.badge}
+                        </span>
                       )}
                     </Link>
                   </SidebarMenuButton>
@@ -112,7 +110,7 @@ const AppSidebar = () => {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="rounded-md hover:bg-gray-100 transition-all duration-200">
-                  <Link to="#" className="flex items-center gap-3 group px-3 py-2">
+                  <Link to="/help-support" className="flex items-center gap-3 group px-3 py-2">
                     <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-app-blue transition-colors" />
                     <span className="text-gray-700">Help & Support</span>
                   </Link>

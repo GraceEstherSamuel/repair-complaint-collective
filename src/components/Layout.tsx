@@ -8,18 +8,19 @@ import { useLocation } from "react-router-dom";
 const Layout = () => {
   const location = useLocation();
   const isMapPage = location.pathname === "/issue-map";
+  const isHelpSupportPage = location.pathname === "/help-support";
   
   return (
     <div className="min-h-screen flex flex-col w-full bg-gradient-to-br from-background to-muted/50">
       <Navbar />
       <div className="flex flex-1 w-full">
         <AppSidebar />
-        <main className={`flex-1 p-4 md:p-6 relative ${isMapPage ? 'md:p-4' : ''}`}>
+        <main className={`flex-1 p-4 md:p-6 relative ${isMapPage || isHelpSupportPage ? 'md:p-4' : ''}`}>
           <div className="absolute top-2 left-2 md:hidden z-10">
             <SidebarTrigger className="bg-white/90 backdrop-blur-sm shadow-md hover:bg-primary/5" />
           </div>
-          <div className={`pt-8 md:pt-0 max-w-7xl mx-auto w-full ${isMapPage ? 'h-full' : ''}`}>
-            <div className={`${!isMapPage ? 'bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 transition-all duration-300 hover:shadow-md' : ''}`}>
+          <div className={`pt-8 md:pt-0 max-w-7xl mx-auto w-full ${isMapPage || isHelpSupportPage ? 'h-full' : ''}`}>
+            <div className={`${!isMapPage && !isHelpSupportPage ? 'bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 transition-all duration-300 hover:shadow-md' : ''}`}>
               <Outlet />
             </div>
           </div>
