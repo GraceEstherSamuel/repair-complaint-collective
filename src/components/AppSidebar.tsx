@@ -19,7 +19,7 @@ import {
   Settings, 
   LogOut,
   HelpCircle,
-  Map
+  MapPin
 } from "lucide-react";
 
 const AppSidebar = () => {
@@ -43,11 +43,6 @@ const AppSidebar = () => {
       title: "Priority Issues",
       url: "/priority-issues",
       icon: BarChart,
-    },
-    {
-      title: "Issue Map",
-      url: "/issue-map",
-      icon: Map,
     },
     {
       title: "Report Issue",
@@ -87,9 +82,6 @@ const AppSidebar = () => {
                       <span className={`${isActive(item.url) ? "font-medium text-gray-900" : "text-gray-700"}`}>
                         {item.title}
                       </span>
-                      {item.title === "Issue Map" && (
-                        <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-app-green text-white">New</span>
-                      )}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
