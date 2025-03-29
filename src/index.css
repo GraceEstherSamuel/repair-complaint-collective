@@ -87,36 +87,4 @@
   .animate-pulse-slow {
     animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
-  
-  .animate-in {
-    animation-duration: 150ms;
-    animation-timing-function: cubic-bezier(0.1, 0.9, 0.2, 1);
-    animation-fill-mode: both;
-  }
-
-  .fade-in {
-    animation-name: fadeIn;
-  }
-
-  .slide-in-from-top-4 {
-    animation-name: slideInFromTop;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInFromTop {
-    from {
-      transform: translateY(-1rem);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
 }
