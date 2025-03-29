@@ -7,8 +7,7 @@ import {
   Edit, 
   Send, 
   ArrowRight,
-  MessageSquareText,
-  HelpCircle
+  MessageSquareText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
